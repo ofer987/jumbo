@@ -1,0 +1,27 @@
+{
+  "name": "Jumbo",
+  "description": "Search for a Jira ticket",
+  "version": "0.1.0",
+  "icons": {
+    "64": "thumbnail-green.png"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "options_page": "options.html",
+  "browser_action": {
+    "default_title": "Jumbo",
+    "default_popup": "main.html"
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Alt+R",
+        "mac": "Alt+R"
+      },
+      "description": "Search for a Jira ticket"
+    }
+},
+  "manifest_version": 2
+}
