@@ -17,8 +17,8 @@
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
-        "default": "Alt+R",
-        "mac": "Alt+R"
+        "default": "Alt+I",
+        "mac": "Alt+I"
       },
       "description": "Search for a Jira ticket"
     }

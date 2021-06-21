@@ -1,5 +1,5 @@
 (function() {
-    var statusLabel = document.getElementById('saved_status');
+    var statusLabel = document.getElementById('saved-status');
 
     var displaySaved = function() {
         statusLabel.textContent = 'Saved';
@@ -16,6 +16,7 @@
             'jira-url': '',
         }, function(savedValues) {
             document.getElementById('jira-url').value = savedValues.jiraUrl;
+            statusLabel.textContent = 'Restored';
         });
     };
 
