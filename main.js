@@ -33,16 +33,19 @@
             var matchGroups = tabUrl.match(/^https:\/\/jira\.thomsonreuters\.com\/browse\/(.+)/);
             if (matchGroups && matchGroups.length > 1) {
                 this.ticketId = matchGroups[1];
+                this.initializeEventHandlers(true);
             } else {
                 this.ticketId = "DPT-";
+                this.initializeEventHandlers();
             }
 
-            this.initializeEventHandlers();
         }
 
-        initializeEventHandlers() {
+        initializeEventHandlers(select) {
             this.ticketIdElement.focus();
-            this.ticketIdElement.select();
+            if (select) {
+                this.ticketIdElement.select();
+            }
             this.ticketIdElement.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter') {
                     if (this.ticketId === '') {
