@@ -21,7 +21,18 @@
         }
 
         get jiraUrl() {
-            return new URL(`${this.baseUrl.href}browse/${this.ticketId}`);
+            if (this.ticketId === '') {
+                return new URL("https://jira.thomsonreuters.com/secure/Dashboard.jspa");
+            }
+
+            // Assume it is a DPT ticket if the ticket only contains numbers
+            var ticketId = this.ticketId;
+            var matchGroups = this.ticketId.match(/^([0-9]+)$/);
+            if (matchGroups && matchGroups.length > 1) {
+                ticketId = `DPT-${this.ticketId}`;
+            }
+
+            return new URL(`${this.baseUrl.href}browse/${ticketId}`);
         }
 
         constructor(tabUrl, jiraBaseUrl) {
@@ -33,19 +44,14 @@
             var matchGroups = tabUrl.match(/^https:\/\/jira\.thomsonreuters\.com\/browse\/(.+)/);
             if (matchGroups && matchGroups.length > 1) {
                 this.ticketId = matchGroups[1];
-                this.initializeEventHandlers(true);
-            } else {
-                this.ticketId = "DPT-";
-                this.initializeEventHandlers();
             }
 
+            this.initializeEventHandlers();
         }
 
-        initializeEventHandlers(select) {
+        initializeEventHandlers() {
             this.ticketIdElement.focus();
-            if (select) {
-                this.ticketIdElement.select();
-            }
+            this.ticketIdElement.select();
             this.ticketIdElement.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter') {
                     if (this.ticketId === '') {
