@@ -33,6 +33,8 @@
             var matchGroups = tabUrl.match(/^https:\/\/jira\.thomsonreuters\.com\/browse\/(.+)/);
             if (matchGroups && matchGroups.length > 1) {
                 this.ticketId = matchGroups[1];
+            } else {
+                this.ticketId = "DPT-";
             }
 
             this.initializeEventHandlers();
