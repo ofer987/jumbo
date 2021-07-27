@@ -65,7 +65,10 @@
 
         navigateTo(url) {
             chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-                chrome.tabs.update(tabs[0].id, { url: url.toString() });
+                var currentUrl = tabs[0].url;
+                chrome.tabs.update(tabs[0].id, { url: url.toString() }, () => {
+                    chrome.history.addUrl({ url: currentUrl });
+                });
             });
         };
 
