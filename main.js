@@ -63,6 +63,14 @@
                 }
             });
 
+            this.ticketIdElement.addEventListener('keyup', () => {
+                if (this.ticketId === '') {
+                    this.searchButton.value = "Navigate to Dashboard";
+                } else {
+                    this.searchButton.value = "Go";
+                }
+            });
+
             this.searchButton.addEventListener('click', () => {
                 this.navigateTo(this.jiraUrl.toString());
                 this.close();
