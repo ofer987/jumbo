@@ -37,7 +37,7 @@
                 ticketId = `${matchGroups[1]}-${matchGroups[2]}`;
             }
 
-            return new URL(`${this.baseUrl.href}browse/${ticketId}`);
+            return new URL(`${this.baseUrl.href}browse/${ticketId.toUpperCase()}`);
         }
 
         constructor(tabUrl, jiraBaseUrl) {
