@@ -32,6 +32,11 @@
                 ticketId = `DPT-${this.ticketId}`;
             }
 
+            var matchGroups = this.ticketId.match(/^([a-z]+)([0-9]+)$/i);
+            if (matchGroups && matchGroups.length > 2) {
+                ticketId = `${matchGroups[1]}-${matchGroups[2]}`;
+            }
+
             return new URL(`${this.baseUrl.href}browse/${ticketId}`);
         }
 
