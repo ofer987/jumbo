@@ -5,11 +5,11 @@
         }
 
         get searchButton() {
-            return document.getElementById('search');
+            return document.getElementById("search");
         }
 
         get ticketIdElement() {
-            return document.getElementById('ticket');
+            return document.getElementById("ticket");
         }
 
         set ticketId(value) {
@@ -25,7 +25,7 @@
         }
 
         get jiraUrl() {
-            if (this.ticketId === '') {
+            if (this.ticketId === "") {
                 return new URL("https://jira.thomsonreuters.com/secure/Dashboard.jspa");
             }
 
@@ -46,8 +46,8 @@
 
         constructor(tabUrl, jiraBaseUrl) {
             this.tabUrl = new URL(tabUrl);
-            this.menuId = 'menu';
-            jiraBaseUrl = 'jira.thomsonreuters.com';
+            this.menuId = "menu";
+            jiraBaseUrl = "jira.thomsonreuters.com";
             this.baseUrl = new URL(`https://${jiraBaseUrl}/`);
 
             var matchGroups = tabUrl.match(/^https:\/\/jira\.thomsonreuters\.com\/browse\/(.+)/);
@@ -61,9 +61,9 @@
         initializeEventHandlers() {
             this.ticketIdElement.focus();
             this.ticketIdElement.select();
-            this.ticketIdElement.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter') {
-                    if (this.ticketId === '') {
+            this.ticketIdElement.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    if (this.ticketId === "") {
                         this.navigateTo(this.baseUrl.toString());
                     } else {
                         this.navigateTo(this.jiraUrl.toString());
@@ -72,8 +72,8 @@
                 }
             });
 
-            this.ticketIdElement.addEventListener('keyup', () => {
-                if (this.ticketId === '') {
+            this.ticketIdElement.addEventListener("keyup", () => {
+                if (this.ticketId === "") {
                     this.searchButton.value = "Navigate to Dashboard";
                     this.jiraLinkText.value = "";
                 } else {
@@ -82,7 +82,7 @@
                 }
             });
 
-            this.searchButton.addEventListener('click', () => {
+            this.searchButton.addEventListener("click", () => {
                 this.navigateTo(this.jiraUrl.toString());
                 this.close();
             });
@@ -103,7 +103,7 @@
     }
 
     var initialize = function(andThen) {
-        chrome.storage.sync.get({ jiraUrl: '' }, function(savedValues) {
+        chrome.storage.sync.get({ jiraUrl: "" }, function(savedValues) {
             andThen(savedValues.jiraUrl);
         });
     };
@@ -118,7 +118,7 @@
     };
 
     // Initalize the popup window.
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener("DOMContentLoaded", function() {
         initialize(main);
     });
 })();
