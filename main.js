@@ -68,6 +68,7 @@
                     } else {
                         this.navigateTo(this.jiraUrl.toString());
                     }
+
                     this.close();
                 }
             });
