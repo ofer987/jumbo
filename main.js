@@ -20,6 +20,10 @@
             return this.ticketIdElement.value.trim();
         }
 
+        get jiraLinkText() {
+            return document.getElementById("link");
+        }
+
         get jiraUrl() {
             if (this.ticketId === '') {
                 return new URL("https://jira.thomsonreuters.com/secure/Dashboard.jspa");
@@ -71,8 +75,10 @@
             this.ticketIdElement.addEventListener('keyup', () => {
                 if (this.ticketId === '') {
                     this.searchButton.value = "Navigate to Dashboard";
+                    this.jiraLinkText.value = "";
                 } else {
                     this.searchButton.value = "Go";
+                    this.jiraLinkText.value = this.jiraUrl.toString();;
                 }
             });
 
