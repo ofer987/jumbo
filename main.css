@@ -3,6 +3,10 @@ body {
   margin: 0;
 }
 
+#link {
+  width: 350px;
+}
+
 .hidden {
   display: none;
 }
