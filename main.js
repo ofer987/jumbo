@@ -58,20 +58,32 @@
             this.initializeEventHandlers();
         }
 
+        navigateToJiraUrl = (event) => {
+            if (event.key === "Enter") {
+                if (this.ticketId === "") {
+                    this.navigateTo(this.baseUrl.toString());
+                } else {
+                    this.navigateTo(this.jiraUrl.toString());
+                }
+
+                this.close();
+            }
+        };
+
+        navigateTo(url) {
+            chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+                var currentUrl = tabs[0].url;
+                chrome.tabs.update(tabs[0].id, { url: url.toString() }, () => {
+                    chrome.history.addUrl({ url: currentUrl });
+                });
+            });
+        }
+
         initializeEventHandlers() {
             this.ticketIdElement.focus();
             this.ticketIdElement.select();
-            this.ticketIdElement.addEventListener("keydown", (event) => {
-                if (event.key === "Enter") {
-                    if (this.ticketId === "") {
-                        this.navigateTo(this.baseUrl.toString());
-                    } else {
-                        this.navigateTo(this.jiraUrl.toString());
-                    }
-
-                    this.close();
-                }
-            });
+            this.ticketIdElement.addEventListener("keydown", this.navigateToJiraUrl);
+            this.jiraLinkText.addEventListener("keydown", this.navigateToJiraUrl);
 
             this.ticketIdElement.addEventListener("keyup", () => {
                 if (this.ticketId === "") {
@@ -88,15 +100,6 @@
                 this.close();
             });
         }
-
-        navigateTo(url) {
-            chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-                var currentUrl = tabs[0].url;
-                chrome.tabs.update(tabs[0].id, { url: url.toString() }, () => {
-                    chrome.history.addUrl({ url: currentUrl });
-                });
-            });
-        };
 
         close() {
             window.close();
